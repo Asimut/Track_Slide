@@ -2,29 +2,53 @@ function ExecuteScript(strId)
 {
   switch (strId)
   {
-      case "5gdpepvQ9iF":
+      case "6AElGsLxcOH":
         Script1();
         break;
-      case "6ksGpKxAc5r":
+      case "6N8anmifqHw":
         Script2();
         break;
-      case "5asUIVc7VJp":
+      case "6O1qSvm1aiA":
         Script3();
         break;
-      case "5gm0ObgKeji":
+      case "61GvW3i5ySM":
         Script4();
         break;
-      case "5g7VBTC4WZN":
+      case "6gDxB9wt3MR":
         Script5();
         break;
-      case "5xtA9RwJBgR":
+      case "6iJUxi60k3f":
         Script6();
         break;
-      case "5W3bKtfVLVP":
+      case "6BRAvIwQPu1":
         Script7();
         break;
-      case "6Ydz6Z6HOln":
+      case "5W5EzzHgn9o":
         Script8();
+        break;
+      case "5oln9WSqdNM":
+        Script9();
+        break;
+      case "678TmSRdk6t":
+        Script10();
+        break;
+      case "6Rc5ZCPM8Uu":
+        Script11();
+        break;
+      case "5wLvsn8ieao":
+        Script12();
+        break;
+      case "6Zmz75YtjfB":
+        Script13();
+        break;
+      case "6Oh8JlZ7jfK":
+        Script14();
+        break;
+      case "69mcNlOB24d":
+        Script15();
+        break;
+      case "67RjztF1gLR":
+        Script16();
         break;
   }
 }
@@ -38,537 +62,321 @@ var setVar = player.SetVar;
 var getVar = player.GetVar;
 window.Script1 = function()
 {
-  
-function isSCORMInitialized() {
-console.log(window);
-  
-  return (typeof window.SCORM2004_objAPI !== 'undefined' || typeof window.API !== 'undefined');
-}
-
-
-function saveProgress() {
-console.log('saveProgress');
-
-  if (isSCORMInitialized()) {
-  	var player = GetPlayer();
-  	
-    var slideNumber = player.GetVar("SlideNumber");
-    var bookmark = '';
-	console.log('slideNumber ' + slideNumber);
-   
-   if (typeof window.SCORM2004_objAPI !== 'undefined') {
-      window.SCORM2004_CallSetValue('cmi.location', slideNumber);
-      window.SCORM2004_CallCommit('');
-    } else if (typeof window.API !== 'undefined') {
-      window.API.LMSCommit('');
-      window.API.SetValue('cmi.core.lesson_location', slideNumber);
-      window.API.SetValue('cmi.suspend_data', bookmark);
-      window.API.LMSCommit('');
-    } else {
-      var progressData = {
-        location: slideNumber,
-        suspendData: bookmark
-      };
-      var jsonProgressData = JSON.stringify(progressData);
-      window.localStorage.setItem('cornerstone_progress', jsonProgressData);
-    }
+  // Функция для записи номера текущего слайда в localStorage
+function saveCurrentSlide(slideNumber) {
+  // Проверяем, доступно ли localStorage
+  if (typeof(Storage) !== "undefined") {
+    // Сохраняем номер слайда
+    localStorage.setItem("currentSlide", slideNumber);
+  } else {
+    // Если localStorage недоступен, выводим ошибку
+    console.error("Sorry, your browser does not support Web Storage...");
   }
 }
 
-
-function restoreProgress() {
-  if (isSCORMInitialized()) {
-    if (typeof window.SCORM2004_objAPI !== 'undefined') {
-      var location = window.SCORM2004_CallGetValue('cmi.location');
-
-    } else if (typeof window.API !== 'undefined') {
-      var location = window.API.GetValue('cmi.core.lesson_location');
-      var suspendData = window.API.GetValue('cmi.suspend_data');
-
-    } else {
-
-      var jsonProgressData = window.localStorage.getItem('cornerstone_progress');
-      if (jsonProgressData) {
-        var progressData = JSON.parse(jsonProgressData);
-        var location = progressData.location;
-        var suspendData = progressData.suspendData;
-
-      }
-    }
-  }
-}
-
-
-saveProgress();
+// Подписываемся на событие xAPI, чтобы вызывать saveCurrentSlide при переходе на новый слайд
+// Здесь нужно использовать функционал xAPI для отслеживания переходов по слайдам
+// Это будет зависеть от вашей конкретной реализации xAPI
 
 }
 
 window.Script2 = function()
 {
-  
-function isSCORMInitialized() {
-console.log(window);
-  
-  return (typeof window.SCORM2004_objAPI !== 'undefined' || typeof window.API !== 'undefined');
-}
-
-
-function saveProgress() {
-console.log('saveProgress');
-
-  if (isSCORMInitialized()) {
-  	var player = GetPlayer();
-  	
-    var slideNumber = player.GetVar("SlideNumber");
-    var bookmark = '';
-	console.log('slideNumber ' + slideNumber);
-   
-   if (typeof window.SCORM2004_objAPI !== 'undefined') {
-      window.SCORM2004_CallSetValue('cmi.location', slideNumber);
-      window.SCORM2004_CallCommit('');
-    } else if (typeof window.API !== 'undefined') {
-      window.API.LMSCommit('');
-      window.API.SetValue('cmi.core.lesson_location', slideNumber);
-      window.API.SetValue('cmi.suspend_data', bookmark);
-      window.API.LMSCommit('');
-    } else {
-      var progressData = {
-        location: slideNumber,
-        suspendData: bookmark
-      };
-      var jsonProgressData = JSON.stringify(progressData);
-      window.localStorage.setItem('cornerstone_progress', jsonProgressData);
-    }
+  // Функция для загрузки курса с последнего просмотренного слайда
+function loadLastViewedSlide() {
+  // Проверяем, есть ли сохраненный номер слайда в localStorage
+  if (localStorage.getItem("currentSlide")) {
+    // Получаем номер слайда
+    var lastViewedSlide = localStorage.getItem("currentSlide");
+    
+    // Используем этот номер для перехода к нужному слайду
+    // Здесь должна быть логика для перехода к слайду в Articulate
+    // Это может быть вызов API Articulate или другой метод, который позволяет установить текущий слайд
   }
 }
 
-
-function restoreProgress() {
-  if (isSCORMInitialized()) {
-    if (typeof window.SCORM2004_objAPI !== 'undefined') {
-      var location = window.SCORM2004_CallGetValue('cmi.location');
-
-    } else if (typeof window.API !== 'undefined') {
-      var location = window.API.GetValue('cmi.core.lesson_location');
-      var suspendData = window.API.GetValue('cmi.suspend_data');
-
-    } else {
-
-      var jsonProgressData = window.localStorage.getItem('cornerstone_progress');
-      if (jsonProgressData) {
-        var progressData = JSON.parse(jsonProgressData);
-        var location = progressData.location;
-        var suspendData = progressData.suspendData;
-
-      }
-    }
-  }
-}
-
-
-saveProgress();
+// Вызываем функцию при инициализации курса
+loadLastViewedSlide();
 
 }
 
 window.Script3 = function()
 {
-  
-function isSCORMInitialized() {
-console.log(window);
-  
-  return (typeof window.SCORM2004_objAPI !== 'undefined' || typeof window.API !== 'undefined');
-}
-
-
-function saveProgress() {
-console.log('saveProgress');
-
-  if (isSCORMInitialized()) {
-  	var player = GetPlayer();
-  	
-    var slideNumber = player.GetVar("SlideNumber");
-    var bookmark = '';
-	console.log('slideNumber ' + slideNumber);
-   
-   if (typeof window.SCORM2004_objAPI !== 'undefined') {
-      window.SCORM2004_CallSetValue('cmi.location', slideNumber);
-      window.SCORM2004_CallCommit('');
-    } else if (typeof window.API !== 'undefined') {
-      window.API.LMSCommit('');
-      window.API.SetValue('cmi.core.lesson_location', slideNumber);
-      window.API.SetValue('cmi.suspend_data', bookmark);
-      window.API.LMSCommit('');
-    } else {
-      var progressData = {
-        location: slideNumber,
-        suspendData: bookmark
-      };
-      var jsonProgressData = JSON.stringify(progressData);
-      window.localStorage.setItem('cornerstone_progress', jsonProgressData);
-    }
+  // Функция для записи номера текущего слайда в localStorage
+function saveCurrentSlide(slideNumber) {
+  // Проверяем, доступно ли localStorage
+  if (typeof(Storage) !== "undefined") {
+    // Сохраняем номер слайда
+    localStorage.setItem("currentSlide", slideNumber);
+  } else {
+    // Если localStorage недоступен, выводим ошибку
+    console.error("Sorry, your browser does not support Web Storage...");
   }
 }
 
-
-function restoreProgress() {
-  if (isSCORMInitialized()) {
-    if (typeof window.SCORM2004_objAPI !== 'undefined') {
-      var location = window.SCORM2004_CallGetValue('cmi.location');
-
-    } else if (typeof window.API !== 'undefined') {
-      var location = window.API.GetValue('cmi.core.lesson_location');
-      var suspendData = window.API.GetValue('cmi.suspend_data');
-
-    } else {
-
-      var jsonProgressData = window.localStorage.getItem('cornerstone_progress');
-      if (jsonProgressData) {
-        var progressData = JSON.parse(jsonProgressData);
-        var location = progressData.location;
-        var suspendData = progressData.suspendData;
-
-      }
-    }
-  }
-}
-
-
-saveProgress();
+// Подписываемся на событие xAPI, чтобы вызывать saveCurrentSlide при переходе на новый слайд
+// Здесь нужно использовать функционал xAPI для отслеживания переходов по слайдам
+// Это будет зависеть от вашей конкретной реализации xAPI
 
 }
 
 window.Script4 = function()
 {
-  
-function isSCORMInitialized() {
-console.log(window);
-  
-  return (typeof window.SCORM2004_objAPI !== 'undefined' || typeof window.API !== 'undefined');
-}
-
-
-function saveProgress() {
-console.log('saveProgress');
-
-  if (isSCORMInitialized()) {
-  	var player = GetPlayer();
-  	
-    var slideNumber = player.GetVar("SlideNumber");
-    var bookmark = '';
-	console.log('slideNumber ' + slideNumber);
-   
-   if (typeof window.SCORM2004_objAPI !== 'undefined') {
-      window.SCORM2004_CallSetValue('cmi.location', slideNumber);
-      window.SCORM2004_CallCommit('');
-    } else if (typeof window.API !== 'undefined') {
-      window.API.LMSCommit('');
-      window.API.SetValue('cmi.core.lesson_location', slideNumber);
-      window.API.SetValue('cmi.suspend_data', bookmark);
-      window.API.LMSCommit('');
-    } else {
-      var progressData = {
-        location: slideNumber,
-        suspendData: bookmark
-      };
-      var jsonProgressData = JSON.stringify(progressData);
-      window.localStorage.setItem('cornerstone_progress', jsonProgressData);
-    }
+  // Функция для загрузки курса с последнего просмотренного слайда
+function loadLastViewedSlide() {
+  // Проверяем, есть ли сохраненный номер слайда в localStorage
+  if (localStorage.getItem("currentSlide")) {
+    // Получаем номер слайда
+    var lastViewedSlide = localStorage.getItem("currentSlide");
+    
+    // Используем этот номер для перехода к нужному слайду
+    // Здесь должна быть логика для перехода к слайду в Articulate
+    // Это может быть вызов API Articulate или другой метод, который позволяет установить текущий слайд
   }
 }
 
-
-function restoreProgress() {
-  if (isSCORMInitialized()) {
-    if (typeof window.SCORM2004_objAPI !== 'undefined') {
-      var location = window.SCORM2004_CallGetValue('cmi.location');
-
-    } else if (typeof window.API !== 'undefined') {
-      var location = window.API.GetValue('cmi.core.lesson_location');
-      var suspendData = window.API.GetValue('cmi.suspend_data');
-
-    } else {
-
-      var jsonProgressData = window.localStorage.getItem('cornerstone_progress');
-      if (jsonProgressData) {
-        var progressData = JSON.parse(jsonProgressData);
-        var location = progressData.location;
-        var suspendData = progressData.suspendData;
-
-      }
-    }
-  }
-}
-
-
-saveProgress();
+// Вызываем функцию при инициализации курса
+loadLastViewedSlide();
 
 }
 
 window.Script5 = function()
 {
-  
-function isSCORMInitialized() {
-console.log(window);
-  
-  return (typeof window.SCORM2004_objAPI !== 'undefined' || typeof window.API !== 'undefined');
-}
-
-
-function saveProgress() {
-console.log('saveProgress');
-
-  if (isSCORMInitialized()) {
-  	var player = GetPlayer();
-  	
-    var slideNumber = player.GetVar("SlideNumber");
-    var bookmark = '';
-	console.log('slideNumber ' + slideNumber);
-   
-   if (typeof window.SCORM2004_objAPI !== 'undefined') {
-      window.SCORM2004_CallSetValue('cmi.location', slideNumber);
-      window.SCORM2004_CallCommit('');
-    } else if (typeof window.API !== 'undefined') {
-      window.API.LMSCommit('');
-      window.API.SetValue('cmi.core.lesson_location', slideNumber);
-      window.API.SetValue('cmi.suspend_data', bookmark);
-      window.API.LMSCommit('');
-    } else {
-      var progressData = {
-        location: slideNumber,
-        suspendData: bookmark
-      };
-      var jsonProgressData = JSON.stringify(progressData);
-      window.localStorage.setItem('cornerstone_progress', jsonProgressData);
-    }
+  // Функция для записи номера текущего слайда в localStorage
+function saveCurrentSlide(slideNumber) {
+  // Проверяем, доступно ли localStorage
+  if (typeof(Storage) !== "undefined") {
+    // Сохраняем номер слайда
+    localStorage.setItem("currentSlide", slideNumber);
+  } else {
+    // Если localStorage недоступен, выводим ошибку
+    console.error("Sorry, your browser does not support Web Storage...");
   }
 }
 
-
-function restoreProgress() {
-  if (isSCORMInitialized()) {
-    if (typeof window.SCORM2004_objAPI !== 'undefined') {
-      var location = window.SCORM2004_CallGetValue('cmi.location');
-
-    } else if (typeof window.API !== 'undefined') {
-      var location = window.API.GetValue('cmi.core.lesson_location');
-      var suspendData = window.API.GetValue('cmi.suspend_data');
-
-    } else {
-
-      var jsonProgressData = window.localStorage.getItem('cornerstone_progress');
-      if (jsonProgressData) {
-        var progressData = JSON.parse(jsonProgressData);
-        var location = progressData.location;
-        var suspendData = progressData.suspendData;
-
-      }
-    }
-  }
-}
-
-
-saveProgress();
+// Подписываемся на событие xAPI, чтобы вызывать saveCurrentSlide при переходе на новый слайд
+// Здесь нужно использовать функционал xAPI для отслеживания переходов по слайдам
+// Это будет зависеть от вашей конкретной реализации xAPI
 
 }
 
 window.Script6 = function()
 {
-  
-function isSCORMInitialized() {
-console.log(window);
-  
-  return (typeof window.SCORM2004_objAPI !== 'undefined' || typeof window.API !== 'undefined');
-}
-
-
-function saveProgress() {
-console.log('saveProgress');
-
-  if (isSCORMInitialized()) {
-  	var player = GetPlayer();
-  	
-    var slideNumber = player.GetVar("SlideNumber");
-    var bookmark = '';
-	console.log('slideNumber ' + slideNumber);
-   
-   if (typeof window.SCORM2004_objAPI !== 'undefined') {
-      window.SCORM2004_CallSetValue('cmi.location', slideNumber);
-      window.SCORM2004_CallCommit('');
-    } else if (typeof window.API !== 'undefined') {
-      window.API.LMSCommit('');
-      window.API.SetValue('cmi.core.lesson_location', slideNumber);
-      window.API.SetValue('cmi.suspend_data', bookmark);
-      window.API.LMSCommit('');
-    } else {
-      var progressData = {
-        location: slideNumber,
-        suspendData: bookmark
-      };
-      var jsonProgressData = JSON.stringify(progressData);
-      window.localStorage.setItem('cornerstone_progress', jsonProgressData);
-    }
+  // Функция для загрузки курса с последнего просмотренного слайда
+function loadLastViewedSlide() {
+  // Проверяем, есть ли сохраненный номер слайда в localStorage
+  if (localStorage.getItem("currentSlide")) {
+    // Получаем номер слайда
+    var lastViewedSlide = localStorage.getItem("currentSlide");
+    
+    // Используем этот номер для перехода к нужному слайду
+    // Здесь должна быть логика для перехода к слайду в Articulate
+    // Это может быть вызов API Articulate или другой метод, который позволяет установить текущий слайд
   }
 }
 
-
-function restoreProgress() {
-  if (isSCORMInitialized()) {
-    if (typeof window.SCORM2004_objAPI !== 'undefined') {
-      var location = window.SCORM2004_CallGetValue('cmi.location');
-
-    } else if (typeof window.API !== 'undefined') {
-      var location = window.API.GetValue('cmi.core.lesson_location');
-      var suspendData = window.API.GetValue('cmi.suspend_data');
-
-    } else {
-
-      var jsonProgressData = window.localStorage.getItem('cornerstone_progress');
-      if (jsonProgressData) {
-        var progressData = JSON.parse(jsonProgressData);
-        var location = progressData.location;
-        var suspendData = progressData.suspendData;
-
-      }
-    }
-  }
-}
-
-
-saveProgress();
+// Вызываем функцию при инициализации курса
+loadLastViewedSlide();
 
 }
 
 window.Script7 = function()
 {
-  
-function isSCORMInitialized() {
-console.log(window);
-  
-  return (typeof window.SCORM2004_objAPI !== 'undefined' || typeof window.API !== 'undefined');
-}
-
-
-function saveProgress() {
-console.log('saveProgress');
-
-  if (isSCORMInitialized()) {
-  	var player = GetPlayer();
-  	
-    var slideNumber = player.GetVar("SlideNumber");
-    var bookmark = '';
-	console.log('slideNumber ' + slideNumber);
-   
-   if (typeof window.SCORM2004_objAPI !== 'undefined') {
-      window.SCORM2004_CallSetValue('cmi.location', slideNumber);
-      window.SCORM2004_CallCommit('');
-    } else if (typeof window.API !== 'undefined') {
-      window.API.LMSCommit('');
-      window.API.SetValue('cmi.core.lesson_location', slideNumber);
-      window.API.SetValue('cmi.suspend_data', bookmark);
-      window.API.LMSCommit('');
-    } else {
-      var progressData = {
-        location: slideNumber,
-        suspendData: bookmark
-      };
-      var jsonProgressData = JSON.stringify(progressData);
-      window.localStorage.setItem('cornerstone_progress', jsonProgressData);
-    }
+  // Функция для записи номера текущего слайда в localStorage
+function saveCurrentSlide(slideNumber) {
+  // Проверяем, доступно ли localStorage
+  if (typeof(Storage) !== "undefined") {
+    // Сохраняем номер слайда
+    localStorage.setItem("currentSlide", slideNumber);
+  } else {
+    // Если localStorage недоступен, выводим ошибку
+    console.error("Sorry, your browser does not support Web Storage...");
   }
 }
 
-
-function restoreProgress() {
-  if (isSCORMInitialized()) {
-    if (typeof window.SCORM2004_objAPI !== 'undefined') {
-      var location = window.SCORM2004_CallGetValue('cmi.location');
-
-    } else if (typeof window.API !== 'undefined') {
-      var location = window.API.GetValue('cmi.core.lesson_location');
-      var suspendData = window.API.GetValue('cmi.suspend_data');
-
-    } else {
-
-      var jsonProgressData = window.localStorage.getItem('cornerstone_progress');
-      if (jsonProgressData) {
-        var progressData = JSON.parse(jsonProgressData);
-        var location = progressData.location;
-        var suspendData = progressData.suspendData;
-
-      }
-    }
-  }
-}
-
-
-saveProgress();
+// Подписываемся на событие xAPI, чтобы вызывать saveCurrentSlide при переходе на новый слайд
+// Здесь нужно использовать функционал xAPI для отслеживания переходов по слайдам
+// Это будет зависеть от вашей конкретной реализации xAPI
 
 }
 
 window.Script8 = function()
 {
-  
-function isSCORMInitialized() {
-console.log(window);
-  
-  return (typeof window.SCORM2004_objAPI !== 'undefined' || typeof window.API !== 'undefined');
-}
-
-
-function saveProgress() {
-console.log('saveProgress');
-
-  if (isSCORMInitialized()) {
-  	var player = GetPlayer();
-  	
-    var slideNumber = player.GetVar("SlideNumber");
-    var bookmark = '';
-	console.log('slideNumber ' + slideNumber);
-   
-   if (typeof window.SCORM2004_objAPI !== 'undefined') {
-      window.SCORM2004_CallSetValue('cmi.location', slideNumber);
-      window.SCORM2004_CallCommit('');
-    } else if (typeof window.API !== 'undefined') {
-      window.API.LMSCommit('');
-      window.API.SetValue('cmi.core.lesson_location', slideNumber);
-      window.API.SetValue('cmi.suspend_data', bookmark);
-      window.API.LMSCommit('');
-    } else {
-      var progressData = {
-        location: slideNumber,
-        suspendData: bookmark
-      };
-      var jsonProgressData = JSON.stringify(progressData);
-      window.localStorage.setItem('cornerstone_progress', jsonProgressData);
-    }
+  // Функция для загрузки курса с последнего просмотренного слайда
+function loadLastViewedSlide() {
+  // Проверяем, есть ли сохраненный номер слайда в localStorage
+  if (localStorage.getItem("currentSlide")) {
+    // Получаем номер слайда
+    var lastViewedSlide = localStorage.getItem("currentSlide");
+    
+    // Используем этот номер для перехода к нужному слайду
+    // Здесь должна быть логика для перехода к слайду в Articulate
+    // Это может быть вызов API Articulate или другой метод, который позволяет установить текущий слайд
   }
 }
 
+// Вызываем функцию при инициализации курса
+loadLastViewedSlide();
 
-function restoreProgress() {
-  if (isSCORMInitialized()) {
-    if (typeof window.SCORM2004_objAPI !== 'undefined') {
-      var location = window.SCORM2004_CallGetValue('cmi.location');
+}
 
-    } else if (typeof window.API !== 'undefined') {
-      var location = window.API.GetValue('cmi.core.lesson_location');
-      var suspendData = window.API.GetValue('cmi.suspend_data');
-
-    } else {
-
-      var jsonProgressData = window.localStorage.getItem('cornerstone_progress');
-      if (jsonProgressData) {
-        var progressData = JSON.parse(jsonProgressData);
-        var location = progressData.location;
-        var suspendData = progressData.suspendData;
-
-      }
-    }
+window.Script9 = function()
+{
+  // Функция для записи номера текущего слайда в localStorage
+function saveCurrentSlide(slideNumber) {
+  // Проверяем, доступно ли localStorage
+  if (typeof(Storage) !== "undefined") {
+    // Сохраняем номер слайда
+    localStorage.setItem("currentSlide", slideNumber);
+  } else {
+    // Если localStorage недоступен, выводим ошибку
+    console.error("Sorry, your browser does not support Web Storage...");
   }
 }
 
+// Подписываемся на событие xAPI, чтобы вызывать saveCurrentSlide при переходе на новый слайд
+// Здесь нужно использовать функционал xAPI для отслеживания переходов по слайдам
+// Это будет зависеть от вашей конкретной реализации xAPI
 
-saveProgress();
+}
+
+window.Script10 = function()
+{
+  // Функция для загрузки курса с последнего просмотренного слайда
+function loadLastViewedSlide() {
+  // Проверяем, есть ли сохраненный номер слайда в localStorage
+  if (localStorage.getItem("currentSlide")) {
+    // Получаем номер слайда
+    var lastViewedSlide = localStorage.getItem("currentSlide");
+    
+    // Используем этот номер для перехода к нужному слайду
+    // Здесь должна быть логика для перехода к слайду в Articulate
+    // Это может быть вызов API Articulate или другой метод, который позволяет установить текущий слайд
+  }
+}
+
+// Вызываем функцию при инициализации курса
+loadLastViewedSlide();
+
+}
+
+window.Script11 = function()
+{
+  // Функция для записи номера текущего слайда в localStorage
+function saveCurrentSlide(slideNumber) {
+  // Проверяем, доступно ли localStorage
+  if (typeof(Storage) !== "undefined") {
+    // Сохраняем номер слайда
+    localStorage.setItem("currentSlide", slideNumber);
+  } else {
+    // Если localStorage недоступен, выводим ошибку
+    console.error("Sorry, your browser does not support Web Storage...");
+  }
+}
+
+// Подписываемся на событие xAPI, чтобы вызывать saveCurrentSlide при переходе на новый слайд
+// Здесь нужно использовать функционал xAPI для отслеживания переходов по слайдам
+// Это будет зависеть от вашей конкретной реализации xAPI
+
+}
+
+window.Script12 = function()
+{
+  // Функция для загрузки курса с последнего просмотренного слайда
+function loadLastViewedSlide() {
+  // Проверяем, есть ли сохраненный номер слайда в localStorage
+  if (localStorage.getItem("currentSlide")) {
+    // Получаем номер слайда
+    var lastViewedSlide = localStorage.getItem("currentSlide");
+    
+    // Используем этот номер для перехода к нужному слайду
+    // Здесь должна быть логика для перехода к слайду в Articulate
+    // Это может быть вызов API Articulate или другой метод, который позволяет установить текущий слайд
+  }
+}
+
+// Вызываем функцию при инициализации курса
+loadLastViewedSlide();
+
+}
+
+window.Script13 = function()
+{
+  // Функция для записи номера текущего слайда в localStorage
+function saveCurrentSlide(slideNumber) {
+  // Проверяем, доступно ли localStorage
+  if (typeof(Storage) !== "undefined") {
+    // Сохраняем номер слайда
+    localStorage.setItem("currentSlide", slideNumber);
+  } else {
+    // Если localStorage недоступен, выводим ошибку
+    console.error("Sorry, your browser does not support Web Storage...");
+  }
+}
+
+// Подписываемся на событие xAPI, чтобы вызывать saveCurrentSlide при переходе на новый слайд
+// Здесь нужно использовать функционал xAPI для отслеживания переходов по слайдам
+// Это будет зависеть от вашей конкретной реализации xAPI
+
+}
+
+window.Script14 = function()
+{
+  // Функция для загрузки курса с последнего просмотренного слайда
+function loadLastViewedSlide() {
+  // Проверяем, есть ли сохраненный номер слайда в localStorage
+  if (localStorage.getItem("currentSlide")) {
+    // Получаем номер слайда
+    var lastViewedSlide = localStorage.getItem("currentSlide");
+    
+    // Используем этот номер для перехода к нужному слайду
+    // Здесь должна быть логика для перехода к слайду в Articulate
+    // Это может быть вызов API Articulate или другой метод, который позволяет установить текущий слайд
+  }
+}
+
+// Вызываем функцию при инициализации курса
+loadLastViewedSlide();
+
+}
+
+window.Script15 = function()
+{
+  // Функция для записи номера текущего слайда в localStorage
+function saveCurrentSlide(slideNumber) {
+  // Проверяем, доступно ли localStorage
+  if (typeof(Storage) !== "undefined") {
+    // Сохраняем номер слайда
+    localStorage.setItem("currentSlide", slideNumber);
+  } else {
+    // Если localStorage недоступен, выводим ошибку
+    console.error("Sorry, your browser does not support Web Storage...");
+  }
+}
+
+// Подписываемся на событие xAPI, чтобы вызывать saveCurrentSlide при переходе на новый слайд
+// Здесь нужно использовать функционал xAPI для отслеживания переходов по слайдам
+// Это будет зависеть от вашей конкретной реализации xAPI
+
+}
+
+window.Script16 = function()
+{
+  // Функция для загрузки курса с последнего просмотренного слайда
+function loadLastViewedSlide() {
+  // Проверяем, есть ли сохраненный номер слайда в localStorage
+  if (localStorage.getItem("currentSlide")) {
+    // Получаем номер слайда
+    var lastViewedSlide = localStorage.getItem("currentSlide");
+    
+    // Используем этот номер для перехода к нужному слайду
+    // Здесь должна быть логика для перехода к слайду в Articulate
+    // Это может быть вызов API Articulate или другой метод, который позволяет установить текущий слайд
+  }
+}
+
+// Вызываем функцию при инициализации курса
+loadLastViewedSlide();
 
 }
 
