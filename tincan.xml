@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<tincan xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://projecttincan.com/tincan.xsd">
+	<activities>
+		<activity id="urn:articulate:storyline:5fi3S1vqzLg" type="http://adlnet.gov/expapi/activities/course">
+			<name lang="und">Cornerstone_Disconnect_7</name>
+			<description lang="und" />
+			<launch lang="und">index_lms.html</launch>
+		</activity>
+		<activity id="urn:articulate:storyline:5fi3S1vqzLg/6SM5hWxiW7d" type="http://adlnet.gov/expapi/activities/module">
+			<name lang="und">Slide_1</name>
+			<description lang="und">Slide_1</description>
+		</activity>
+		<activity id="urn:articulate:storyline:5fi3S1vqzLg/6AZfULLqmQ9" type="http://adlnet.gov/expapi/activities/module">
+			<name lang="und">Slide_2</name>
+			<description lang="und">Slide_2</description>
+		</activity>
+		<activity id="urn:articulate:storyline:5fi3S1vqzLg/6DIIijHoatl" type="http://adlnet.gov/expapi/activities/module">
+			<name lang="und">Slide_3</name>
+			<description lang="und">Slide_3</description>
+		</activity>
+		<activity id="urn:articulate:storyline:5fi3S1vqzLg/6RK6lLIJZFy" type="http://adlnet.gov/expapi/activities/module">
+			<name lang="und">Slide_4</name>
+			<description lang="und">Slide_4</description>
+		</activity>
+		<activity id="urn:articulate:storyline:5fi3S1vqzLg/5d7tgqhd20K" type="http://adlnet.gov/expapi/activities/module">
+			<name lang="und">Slide_5</name>
+			<description lang="und">Slide_5</description>
+		</activity>
+		<activity id="urn:articulate:storyline:5fi3S1vqzLg/5ooUqifT12G" type="http://adlnet.gov/expapi/activities/module">
+			<name lang="und">Slide_6</name>
+			<description lang="und">Slide_6</description>
+		</activity>
+		<activity id="urn:articulate:storyline:5fi3S1vqzLg/6jlWwVF48nZ" type="http://adlnet.gov/expapi/activities/module">
+			<name lang="und">Slide_7</name>
+			<description lang="und">Slide_7</description>
+		</activity>
+		<activity id="urn:articulate:storyline:5fi3S1vqzLg/6AdQoh83LVf" type="http://adlnet.gov/expapi/activities/module">
+			<name lang="und">Slide_8</name>
+			<description lang="und">Slide_8</description>
+		</activity>
+	</activities>
+</tincan>
